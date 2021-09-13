@@ -17,12 +17,14 @@ pipeline {
             }
         }
         stage('Deploy') {
-            post {
+            steps{
+                post {
             success {
             dir (‘maven-adderapp’) {
             archiveArtifacts artifacts: 'target/*.jar', fingerprint:true
                     }
                 }
+        }
         }
         }   
         
