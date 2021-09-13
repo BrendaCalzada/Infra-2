@@ -10,6 +10,13 @@ pipeline {
                 sh 'mvn -DskipTests clean package'
                 }
             }
+            post {
+                success {
+                dir (‘maven-adderapp’) {
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                }
+        }
+    }
         }
         stage('Test') {
             steps {
@@ -21,13 +28,8 @@ pipeline {
                 echo 'Deploying....'
             }
         }
+        
     }
-    post {
-        success {
-            dir (‘maven-adderapp’) {
-            archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-            }
-        }
-    }
+    
 
 }
